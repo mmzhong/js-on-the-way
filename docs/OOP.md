@@ -127,18 +127,124 @@ var desk = _new(Desk)
 
 与典型的 OOP 语言不同，JS 里的 `this` 指向的对象并不是固定的，它是动态的、可变的。
 
-**this** 总是指向函数执行时所在的环境。
+**`this`** 总是指向函数执行时所在的环境。
 
 ### 使用场景
 
-1. 全局环境
-2. 构造函数
-3. 对象方法
+#### 1. 全局环境
 
-### 注意点
+全局环境下，`this` 始终指向顶层对象，浏览器环境是 `window`，node 环境是 `global`。
 
-### 固定 `this`
+```javascript
+this === window; // true
+function f() {
+  this === window; // true
+}
+```
+
+#### 2. 构造函数
+
+构造函数中，`this` 指向当前实例。
+
+```javascript
+function Person(name) {
+  this.name = name;
+}
+Person.prototype.getName = function() {
+  return this.name;
+}
+```
+
+#### 3. 对象方法
+
+如果将含有 `this` 的 A 对象方法赋值给另外一个 B 对象，那么 B 调用该方法时 `this` 指向 B 。
+
+```javascript
+var a = {
+  f: function() {
+    console.log(this);
+  }
+};
+
+a.f(); // this => a
+
+var b = {};
+b.f = a.f;
+b.f(); // this => b
+```
+
+如果不是直接调用方法 `f()` ，那么 `this` 将指向顶层对象：
+
+```javascript
+(true && a.f)(); 
+```
+
+这是因为括号里表达式运算使得 `f()` 成为了一个函数返回值，该返回值成了顶层环境中的一个函数，因此调用该函数的是顶层对象，而不再是 `a`，这就导致 `this` 指向顶层对象。 
+
+多层对象内部的方法中，`this` 指向函数所在层的对象，而不是更上级对象。
+
+```javascript
+var a = {
+  b: 'b',
+  c: {
+    f: function() {
+      console.log(this); // this => a.b
+    }
+  }
+}
+```
+
+### 关键点
+
+理解 `this` 的指向关键点：
+
+1. `this` 始终指向函数执行时所在的调用环境，可以是顶层对象、普通对象和构造函数等
+2. `function` 定义函数时，`{}`内部是一个新作用域，与上一层作用域不同
+
+```javascript
+var o = {
+  f1: function() {
+    console.log(this); // this => o
+    var f2 = function() { // new scope
+      console.log(this);
+    }
+    f2(); // this => window
+  }
+}
+o.f1();
+```
+
+### 指定 `this`
+
+JS 提供了三个方法来指定 `this` 应该指向哪个对象。注意：这三个方法是函数的方法，所以它们面向的是函数。
 
 * `Function.prototype.call`
 * `Function.prototype.apply`
 * `Function.prototype.bind`
+
+`call(this, arg1, arg2, ...)`：第一个参数是 `this` 要指向的对象，后续的参数成为 `f` 的入参。如果第一个参数不是一个对象，如null、undefined，那么默认为全局对象 window 。
+
+```javascript
+var o = {};
+var f = function(x, y) {
+  console.log(this);
+};
+f.call(o, 1, 2); // this => o, x = 1, y = 2
+```
+
+`apply(this, [arg1, arg2, ...])`：与 call 相同，唯一不同是第二个参数是数组。
+
+```javascript
+f.apply(o, [1, 2]); // this => o, x = 1, y = 2
+```
+
+`bind(this)`：该方法返回一个新函数，新函数内部的 `this` 指向传入的参数。
+
+## 原型链
+
+todo
+
+
+## 参考
+
+* [面向对象编程](http://javascript.ruanyifeng.com/oop/this.html)
