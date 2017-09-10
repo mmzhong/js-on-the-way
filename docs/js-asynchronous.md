@@ -51,7 +51,7 @@
 - 异步（Asynchronous）：每个任务都有回调，上一个任务还没执行完就可以开始执行下一个任务
 
 <p align="center">
-  <img alt="Sync VS Async" src="../img/async.png" style="max-width: 66%;">
+  <img alt="sync vs async" src="../img/async.png" style="width: 60%;">
 </p>
 
 ## 真正的耗时操作
@@ -65,13 +65,13 @@
 一个浏览器界流传广泛的段子：
 
 <p align="center">
-  <img alt="browsers" src="../img/browsers.png" style="max-width: 66%;">
+  <img alt="browsers" src="../img/browsers.png" style="width: 66%;">
 </p>
 
 浏览器组成：
 
 <p align="center">
-  <img alt="browser components" src="../img/browser-components.png" style="max-width: 66%;">
+  <img alt="browser components" src="../img/browser-components.png" style="width: 66%;">
 </p>
 
 （图片来自 [aligarsiel.com](http://taligarsiel.com/Projects/howbrowserswork1.htm)）
@@ -80,7 +80,7 @@
 这些异步线程都会产生不同的异步事件。
 
 <p align="center">
-  <img alt="web core" src="../img/web-core.png" style="max-width: 66%;">
+  <img alt="web core" src="../img/web-core.png" style="width: 66%;">
 </p>
 
 JS 引擎是基于事件驱动（Event Loop）的。浏览器内部维护着一个事件队列（Queue），JS 引擎不断的询问该队列。如果队列中有事件，则获取该事件并处理。事件队列中的事件来源有很多，比如定时器线程、异步请求线程、交互事件触发线程等等，它们触发事件就只把事件推入队列尾部。因此，可以说 **JS 引擎线程消耗其他线程产生的事件**。
@@ -92,7 +92,7 @@ JS 引擎是基于事件驱动（Event Loop）的。浏览器内部维护着一�
 Node.js 的单线程 Event Loop
 
 <p align="center">
-  <img alt="node.js event loop" src="../img/nodejs.jpg" style="max-width: 88%;">
+  <img alt="node.js event loop" src="../img/nodejs.jpg" style="width: 88%;">
 </p>
 
 (图片来自 [wprl](https://twitter.com/wprl/status/496643917559758848))
