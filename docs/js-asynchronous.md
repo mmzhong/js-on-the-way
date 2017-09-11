@@ -153,14 +153,17 @@ console.log(5);
 
 所以，在 Example 4 中，首先执行的是 Script 本身，执行过程中，把 setTimeout 回调放入 Macro-Task 队列；Promise 构造函数的回调函数是同步执行的，then 回调被放入 Micro-Task 队列。所以在 Script 这个 Macro-Task 执行完后，会首先清空 Micro-Task 队列，然后才是下一个 Macro-Task，即 setTimeout 回调。
 
-![multi queues](../img/queues.png)
+队列事件来源列表：
 
-## Reference
+<p align="center">
+  <img alt="multi queues" src="../img/queues.png" width="80%">
+</p>
+
+## 参考
 
 - [知乎：多线程有什么用](https://www.zhihu.com/question/19901763/answer/13299543)
-- [JavaScript的单线程和异步](https://zhuanlan.zhihu.com/p/23659122)
-- [JavaScript的线程问题](http://blog.csdn.net/kfanning/article/details/5768776)
-- [Promise的队列和setTimeout的队列有何关联](https://www.zhihu.com/question/36972010)
+- [JavaScript 的单线程和异步](https://zhuanlan.zhihu.com/p/23659122)
+- [JavaScript 的线程问题](http://blog.csdn.net/kfanning/article/details/5768776)
+- [Promise 的队列和 setTimeout 的队列有何关联](https://www.zhihu.com/question/36972010)
 - [Event loop](http://www.ruanyifeng.com/blog/2014/10/event-loop.html)
-- [JavaScript单线程](http://greengerong.com/blog/2015/10/27/javascript-single-thread-and-browser-event-loop/)
-- [图片：Node.js系统框图](https://twitter.com/wprl/status/496643917559758848)
+- [JavaScript 单线程](http://greengerong.com/blog/2015/10/27/javascript-single-thread-and-browser-event-loop/)
